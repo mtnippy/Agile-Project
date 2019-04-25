@@ -13,18 +13,22 @@
 <body class="background">
     {{> nav_bar_non}}
 
+
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>
-            <div class="col-md-3">
-                <h1>{{> header}}</h1>
-                <form method="POST" action="/update">
-                    <input type="text" id="new_name" name="new_name" required minlength="1">
-                    <input type="submit" value="Update Character Name">
-                </form>
-                {{welcome}}
+            <div class="col-md-4 lightbox">
+                <div class="col-md-3">
+                    <h1>{{> header}}</h1>
+                    <form method="POST" action="/update">
+                        <input type="text" id="new_name" name="new_name" required minlength="1">
+                        <input type="submit" class="btn btn-dark" value="Update Character Name">
+                    </form>
+                    {{welcome}}
+                </div>
+                <div class="col-md-5"></div>
             </div>
-            <div class="col-md-5"></div>
+            <div class="col-md-4"></div>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
