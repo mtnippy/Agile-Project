@@ -1,3 +1,5 @@
+// YOU MUST RUN THIS FIRST: "npm install firebase-admin --save"
+
 // initialize firebase
 const admin = require('firebase-admin');
 var serviceAccount = require('../Agile-Project/servicekey.json');
