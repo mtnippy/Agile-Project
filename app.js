@@ -1,3 +1,35 @@
+// YOU MUST RUN THIS FIRST: "npm install firebase-admin --save"
+
+// initialize firebase
+const admin = require('firebase-admin');
+var serviceAccount = require('../Agile-Project/servicekey.json');
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
+
+// declaring variable for firestore
+var fbdb = admin.firestore();
+
+// example of how to change the user 'frank'
+var docRef = fbdb.collection('users').doc('frank');
+var setfrank = docRef.set({
+    First_Name: 'Ruru',
+    Last_Name: 'Lulu'
+});
+
+// reading data from 'users' database
+fbdb.collection('users').get()
+    .then((snapshot) => {
+        snapshot.forEach((doc) => {
+            console.log(doc.id, '=>', doc.data());
+        });
+    })
+    .catch((err) => {
+        console.log('Error getting documents', err);
+    });
+
+
+// existing code
 const express = require('express');
 const bodyParser = require('body-parser');
 const hbs = require('hbs');
@@ -5,6 +37,7 @@ const axios = require('axios');
 const _ = require('lodash');
 const port = process.env.PORT || 8080;
 const fs = require('fs');
+
 
 var authentication = false;
 var user = 'Characters';
