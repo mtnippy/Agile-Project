@@ -28,6 +28,25 @@ fbdb.collection('users').get()
         console.log('Error getting documents', err);
     });
 
+// data from 'characters' database
+fbdb.collection('characters').get()
+    .then((snapshot) => {
+        snapshot.forEach((doc) => {
+            console.log(doc.id, '=>', doc.data());
+            var cdb = Object.assign({ uid: doc.id}, doc.data());
+            // character name, health, and dps are now stored in variables
+            var char_name = cdb.character_name;
+            var char_health = cdb.character_health;
+            var char_dps = cdb.character_dps;
+            console.log(char_name, char_health, char_dps);
+        });
+    })
+    .catch((err) => {
+        console.log('Error getting documents', err);
+    });
+
+
+
 
 // existing code
 const express = require('express');
