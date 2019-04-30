@@ -28,6 +28,58 @@ fbdb.collection('users').get()
         console.log('Error getting documents', err);
     });
 
+// data from 'characters' database
+fbdb.collection('characters').get()
+    .then((snapshot) => {
+        snapshot.forEach((doc) => {
+            console.log(doc.id, '=>', doc.data());
+            var cdb = Object.assign({ uid: doc.id}, doc.data());
+            // character name, health, and dps are now stored in variables
+            var char_name = cdb.character_name;
+            var char_health = cdb.character_health;
+            var char_dps = cdb.character_dps;
+            console.log(char_name, char_health, char_dps);
+        });
+    })
+    .catch((err) => {
+        console.log('Error getting documents', err);
+    });
+
+// add data to the 'characters' database with randomly generated ID
+/*
+fbdb.collection("characters").add({
+    character_dps: 0,
+    character_health: 1000,
+    character_name: 'alexpoo',
+    username: '',
+    character: {
+        character_dps: 0,
+        character_health: 1000,
+        character_name: 'alexpoo',
+    }
+})
+    .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+        console.error("Error adding comment: ", error);
+    });
+*/
+
+// add data to the 'characters; database with specified ID
+fbdb.collection('characters').doc('bigstrongalex').set({
+    character_dps: 0,
+    character_health: 1000,
+    character_name: 'bigstrongalex',
+    username: ''
+});
+
+
+
+
+
+
+
 
 // existing code
 const express = require('express');
