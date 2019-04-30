@@ -113,6 +113,19 @@ function login(email, password) {
 }
 login(email, password);
 
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // console.log(user); // It shows the Firebase user
+        // console.log(firebase.auth().user); // It is still undefined
+        // store token in variable
+        user.getIdToken().then(function(idToken) {  // <------ Check this line
+            console.log(idToken); // It shows the Firebase token now
+        });
+    }
+});
+
+
+
 // existing code
 const express = require('express');
 const bodyParser = require('body-parser');
