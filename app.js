@@ -114,6 +114,7 @@ function login(email, password) {
     // FIXME: redirect to index_b.hbs
 }
 
+// authentication function
 function auth_user() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -136,6 +137,8 @@ function auth_user() {
         }
     });
 }
+
+
 
 login(email, password);
 auth_user();
