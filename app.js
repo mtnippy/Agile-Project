@@ -108,6 +108,7 @@ function login(email, password) {
         var errorMessages = error.message;
         console.log('error'+ error.message);
     });
+    // FIXME: assign token if successfully logged in
     // FIXME: redirect to index_b.hbs
 }
 login(email, password);
