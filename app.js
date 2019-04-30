@@ -87,8 +87,7 @@ fbdb.collection('characters').doc('bigstrongalex').set({
     username: ''
 });
 
-
-
+// add new user with Firebase Authentication
 var email = 'catstomper@hotmail.com';
 var password = '123456';
 firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
