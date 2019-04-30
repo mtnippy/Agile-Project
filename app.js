@@ -1,11 +1,24 @@
 // YOU MUST RUN THIS FIRST: "npm install firebase-admin --save"
 
 // initialize firebase
+// const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-var serviceAccount = require('../Agile-Project/servicekey.json');
+const serviceAccount = require('../Agile-Project/servicekey.json');
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
+const firebase = require('firebase');
+var firebaseConfig = {
+    apiKey: "AIzaSyCJorziWo3lcBRSxEqaTD-WMFEP-0VxqOY",
+    authDomain: "test-6ec85.firebaseapp.com",
+    databaseURL: "https://test-6ec85.firebaseio.com",
+    projectId: "test-6ec85",
+    storageBucket: "test-6ec85.appspot.com",
+    messagingSenderId: "483947477248"
+};
+firebase.initializeApp(firebaseConfig);
+
+
 
 // declaring variable for firestore
 var fbdb = admin.firestore();
@@ -74,9 +87,15 @@ fbdb.collection('characters').doc('bigstrongalex').set({
     username: ''
 });
 
-
-
-
+// add new user with Firebase Authentication
+var email = 'catstomper@hotmail.com';
+var password = '123456';
+firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+    // error handling
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log('error'+ error.message);
+});
 
 
 
