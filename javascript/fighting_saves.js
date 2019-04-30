@@ -27,7 +27,6 @@ var add_info = (name, player_health, player_dps, enemy_health, enemy_dps) => {
     };
     var result_battle = JSON.stringify(player_info, undefined, 2);
     fs.writeFileSync('arena.json', result_battle)
-    return "Info sucessfully added"
 };
 
 var get_info = () => {
