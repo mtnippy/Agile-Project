@@ -88,7 +88,7 @@ fbdb.collection('characters').doc('bigstrongalex').set({
 });
 
 // add new user with Firebase Authentication
-var email = 'catstomper@hotmail.com';
+var email = 'alexXD@hotmail.com';
 var password = '123456';
 firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
     // error handling
@@ -97,6 +97,20 @@ firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(e
     console.log('error'+ error.message);
 });
 
+// login function
+function login(email, password) {
+    var email = 'alexXD@hotmail.com';
+    var password = '123456';
+    // FIXME: reset the html form here
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // error handling
+        var errorCode = error.code;
+        var errorMessages = error.message;
+        console.log('error'+ error.message);
+    });
+    // FIXME: redirect to index_b.hbs
+}
+login(email, password);
 
 // existing code
 const express = require('express');
