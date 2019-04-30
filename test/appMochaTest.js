@@ -9,4 +9,8 @@ describe('adding', function(){
         var actual = fightingSaves.add_info('Andy', '1', '2', '23', '40');
         assert.equal(actual, 'Info sucessfully added');
     });
+    it('When Getting info, Expect good info', function(){
+        var actual = fightingSaves.get_info();
+        assert.equal(actual, 'Info Retrieved');
+    });
 });
