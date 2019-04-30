@@ -30,6 +30,7 @@ var add_info = (name, player_health, player_dps, enemy_health, enemy_dps) => {
     return "Info Added"
 };
 
+
 var get_info = () => {
     var get_arena_stats = fs.readFileSync('arena.json');
     return JSON.parse(get_arena_stats);
