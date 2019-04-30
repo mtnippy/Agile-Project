@@ -1,8 +1,9 @@
 // YOU MUST RUN THIS FIRST: "npm install firebase-admin --save"
 
 // initialize firebase
+// const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const serviceAccount = require('../Agile-Project/servicekey.json');
+const serviceAccount = require('../3rd Agile Project/servicekey.json');
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
@@ -16,8 +17,6 @@ var firebaseConfig = {
     messagingSenderId: "483947477248"
 };
 firebase.initializeApp(firebaseConfig);
-
-
 
 // declaring variable for firestore
 var fbdb = admin.firestore();
@@ -33,28 +32,28 @@ var setfrank = docRef.set({
 fbdb.collection('users').get()
     .then((snapshot) => {
         snapshot.forEach((doc) => {
-            console.log(doc.id, '=>', doc.data());
+            // console.log(doc.id, '=>', doc.data());
         });
     })
     .catch((err) => {
-        console.log('Error getting documents', err);
+        // console.log('Error getting documents', err);
     });
 
 // data from 'characters' database
 fbdb.collection('characters').get()
     .then((snapshot) => {
         snapshot.forEach((doc) => {
-            console.log(doc.id, '=>', doc.data());
-            var cdb = Object.assign({ uid: doc.id}, doc.data());
-            // character name, health, and dps are now stored in variables
-            var char_name = cdb.character_name;
-            var char_health = cdb.character_health;
-            var char_dps = cdb.character_dps;
-            console.log(char_name, char_health, char_dps);
+            // console.log(doc.id, '=>', doc.data());
+            // var cdb = Object.assign({ uid: doc.id}, doc.data());
+            // // character name, health, and dps are now stored in variables
+            // var char_name = cdb.character_name;
+            // var char_health = cdb.character_health;
+            // var char_dps = cdb.character_dps;
+            // // console.log(char_name, char_health, char_dps);
         });
     })
     .catch((err) => {
-        console.log('Error getting documents', err);
+        // console.log('Error getting documents', err);
     });
 
 // add data to the 'characters' database with randomly generated ID
@@ -86,61 +85,15 @@ fbdb.collection('characters').doc('bigstrongalex').set({
     username: ''
 });
 
-// temporary variables for registration and login
-var email = 'alexXD@hotmail.com';
-var password = '123456';
-
-// register new user function
-function register() {
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-        // error handling
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log('error'+ error.message);
-    });
-}
-
-// login function
-function login(email, password) {
-    // FIXME: reset login form
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .catch(function(error) {
-        // error handling
-        var errorCode = error.code;
-        var errorMessages = error.message;
-        console.log('error'+ error.message);
-    });
-    // FIXME: assign token if successfully logged in
-    // FIXME: redirect to index_b.hbs
-}
-
-function auth_user() {
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            // console.log(user); // It shows the Firebase user
-            // console.log(firebase.auth().user); // It is still undefined
-            // store token in variable
-            user.getIdToken().then(function(idToken) {  // <------ Check this line
-                console.log(idToken); // It shows the Firebase token now
-            admin.auth().verifyIdToken(idToken)
-                .then(function(decodedToken) {
-                    var uid = decodedToken.uid;
-                    console.log(uid);
-                }).catch(function(error) {
-                // Handle error
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log('error'+ error.message);
-                });
-            });
-        }
-    });
-}
-
-login(email, password);
-auth_user();
-
-
+// add new user with Firebase Authentication
+// var email = 'catstomper@hotmail.com';
+// var password = '123456';
+// firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+//     // error handling
+//     var errorCode = error.code;
+//     var errorMessage = error.message;
+//     console.log('error'+ error.message);
+// });
 
 // existing code
 const express = require('express');
@@ -154,6 +107,7 @@ const fs = require('fs');
 
 var authentication = false;
 var user = 'Characters';
+var userid = '';
 
 const user_db = require('./javascript/user_db.js');
 const character_db = require('./javascript/character_db.js');
@@ -207,12 +161,32 @@ app.post('/user_logging_in', (request, response) => {
     var password = request.body.password;
     var output = user_db.login_check(email, password);
 
-    if (output === 'Success!') {
+    if (output === 'Login Failed') {
+        response.redirect('/')
+    } else {
         authentication = true;
         user = email;
-        response.redirect('/index_b')
-    } else {
-        response.redirect('/')
+        response.redirect('/index_b');
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // console.log(user); // It shows the Firebase user
+                // console.log(firebase.auth().user); // It is still undefined
+                // store token in variable
+                user.getIdToken().then(function(idToken) {  // <------ Check this line
+                    console.log(idToken); // It shows the Firebase token now
+                    admin.auth().verifyIdToken(idToken)
+                        .then(function(decodedToken) {
+                            userid = decodedToken.uid;
+                            console.log(userid);
+                        }).catch(function(error) {
+                        // Handle error
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log('error'+ error.message);
+                    });
+                });
+            }
+        });
     }
 });
 
