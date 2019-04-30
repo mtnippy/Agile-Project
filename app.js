@@ -1,3 +1,148 @@
+// YOU MUST RUN THIS FIRST: "npm install firebase-admin --save"
+
+// initialize firebase
+const admin = require('firebase-admin');
+const serviceAccount = require('../Agile-Project/servicekey.json');
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
+const firebase = require('firebase');
+var firebaseConfig = {
+    apiKey: "AIzaSyCJorziWo3lcBRSxEqaTD-WMFEP-0VxqOY",
+    authDomain: "test-6ec85.firebaseapp.com",
+    databaseURL: "https://test-6ec85.firebaseio.com",
+    projectId: "test-6ec85",
+    storageBucket: "test-6ec85.appspot.com",
+    messagingSenderId: "483947477248"
+};
+firebase.initializeApp(firebaseConfig);
+
+
+
+// declaring variable for firestore
+var fbdb = admin.firestore();
+
+// example of how to change the user 'frank'
+var docRef = fbdb.collection('users').doc('frank');
+var setfrank = docRef.set({
+    First_Name: 'Ruru',
+    Last_Name: 'Lulu'
+});
+
+// reading data from 'users' database
+fbdb.collection('users').get()
+    .then((snapshot) => {
+        snapshot.forEach((doc) => {
+            console.log(doc.id, '=>', doc.data());
+        });
+    })
+    .catch((err) => {
+        console.log('Error getting documents', err);
+    });
+
+// data from 'characters' database
+fbdb.collection('characters').get()
+    .then((snapshot) => {
+        snapshot.forEach((doc) => {
+            console.log(doc.id, '=>', doc.data());
+            var cdb = Object.assign({ uid: doc.id}, doc.data());
+            // character name, health, and dps are now stored in variables
+            var char_name = cdb.character_name;
+            var char_health = cdb.character_health;
+            var char_dps = cdb.character_dps;
+            console.log(char_name, char_health, char_dps);
+        });
+    })
+    .catch((err) => {
+        console.log('Error getting documents', err);
+    });
+
+// add data to the 'characters' database with randomly generated ID
+/*
+fbdb.collection("characters").add({
+    character_dps: 0,
+    character_health: 1000,
+    character_name: 'alexpoo',
+    username: '',
+    character: {
+        character_dps: 0,
+        character_health: 1000,
+        character_name: 'alexpoo',
+    }
+})
+    .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+        console.error("Error adding comment: ", error);
+    });
+*/
+
+// add data to the 'characters; database with specified ID
+fbdb.collection('characters').doc('bigstrongalex').set({
+    character_dps: 0,
+    character_health: 1000,
+    character_name: 'bigstrongalex',
+    username: ''
+});
+
+// temporary variables for registration and login
+var email = 'alexXD@hotmail.com';
+var password = '123456';
+
+// register new user function
+function register() {
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // error handling
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log('error'+ error.message);
+    });
+}
+
+// login function
+function login(email, password) {
+    // FIXME: reset login form
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .catch(function(error) {
+        // error handling
+        var errorCode = error.code;
+        var errorMessages = error.message;
+        console.log('error'+ error.message);
+    });
+    // FIXME: assign token if successfully logged in
+    // FIXME: redirect to index_b.hbs
+}
+
+function auth_user() {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            // console.log(user); // It shows the Firebase user
+            // console.log(firebase.auth().user); // It is still undefined
+            // store token in variable
+            user.getIdToken().then(function(idToken) {  // <------ Check this line
+                console.log(idToken); // It shows the Firebase token now
+            admin.auth().verifyIdToken(idToken)
+                .then(function(decodedToken) {
+                    var uid = decodedToken.uid;
+                    console.log(uid);
+                }).catch(function(error) {
+                // Handle error
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log('error'+ error.message);
+                });
+            });
+        }
+    });
+}
+
+login(email, password);
+auth_user();
+
+
+
+// existing code
 const express = require('express');
 const bodyParser = require('body-parser');
 const hbs = require('hbs');
@@ -5,6 +150,7 @@ const axios = require('axios');
 const _ = require('lodash');
 const port = process.env.PORT || 8080;
 const fs = require('fs');
+
 
 var authentication = false;
 var user = 'Characters';
