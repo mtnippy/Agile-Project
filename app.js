@@ -98,8 +98,6 @@ firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(e
 });
 
 
-
-
 // existing code
 const express = require('express');
 const bodyParser = require('body-parser');
