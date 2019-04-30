@@ -45,6 +45,39 @@ fbdb.collection('characters').get()
         console.log('Error getting documents', err);
     });
 
+// add data to the 'characters' database with randomly generated ID
+/*
+fbdb.collection("characters").add({
+    character_dps: 0,
+    character_health: 1000,
+    character_name: 'alexpoo',
+    username: '',
+    character: {
+        character_dps: 0,
+        character_health: 1000,
+        character_name: 'alexpoo',
+    }
+})
+    .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+        console.error("Error adding comment: ", error);
+    });
+*/
+
+// add data to the 'characters; database with specified ID
+fbdb.collection('characters').doc('bigstrongalex').set({
+    character_dps: 0,
+    character_health: 1000,
+    character_name: 'bigstrongalex',
+    username: ''
+});
+
+
+
+
+
 
 
 
