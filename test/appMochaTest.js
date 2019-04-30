@@ -2,7 +2,7 @@ const assert = require('chai').assert;
 const fightingSaves = require('../javascript/fighting_saves');
 
 describe('adding', function(){
-    // Unit test for adding info upon character creation
+    // Unit test "it" block for adding info upon character creation
     // Note: you have to change the "test" var from "echo/.... to "mocha"
     // When Unit testing a method, maker sure that method RETURNS SOMETHING!!!
     it('When Adding info, Expect good info', function(){
