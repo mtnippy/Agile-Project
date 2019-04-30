@@ -17,8 +17,6 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-
-
 // declaring variable for firestore
 var fbdb = admin.firestore();
 
@@ -137,8 +135,6 @@ function auth_user() {
         }
     });
 }
-
-
 
 login(email, password);
 auth_user();
