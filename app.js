@@ -1,7 +1,6 @@
 // YOU MUST RUN THIS FIRST: "npm install firebase-admin --save"
 
 // initialize firebase
-// const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const serviceAccount = require('../Agile-Project/servicekey.json');
 admin.initializeApp({
@@ -87,22 +86,25 @@ fbdb.collection('characters').doc('bigstrongalex').set({
     username: ''
 });
 
-// add new user with Firebase Authentication
+// temporary variables for registration and login
 var email = 'alexXD@hotmail.com';
 var password = '123456';
-firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-    // error handling
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log('error'+ error.message);
-});
+
+// register new user function
+function register() {
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // error handling
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log('error'+ error.message);
+    });
+}
 
 // login function
 function login(email, password) {
-    var email = 'alexXD@hotmail.com';
-    var password = '123456';
-    // FIXME: reset the html form here
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+    // FIXME: reset login form
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .catch(function(error) {
         // error handling
         var errorCode = error.code;
         var errorMessages = error.message;
@@ -111,18 +113,32 @@ function login(email, password) {
     // FIXME: assign token if successfully logged in
     // FIXME: redirect to index_b.hbs
 }
-login(email, password);
 
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        // console.log(user); // It shows the Firebase user
-        // console.log(firebase.auth().user); // It is still undefined
-        // store token in variable
-        user.getIdToken().then(function(idToken) {  // <------ Check this line
-            console.log(idToken); // It shows the Firebase token now
-        });
-    }
-});
+function auth_user() {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            // console.log(user); // It shows the Firebase user
+            // console.log(firebase.auth().user); // It is still undefined
+            // store token in variable
+            user.getIdToken().then(function(idToken) {  // <------ Check this line
+                console.log(idToken); // It shows the Firebase token now
+            admin.auth().verifyIdToken(idToken)
+                .then(function(decodedToken) {
+                    var uid = decodedToken.uid;
+                    console.log(uid);
+                }).catch(function(error) {
+                // Handle error
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log('error'+ error.message);
+                });
+            });
+        }
+    });
+}
+
+login(email, password);
+auth_user();
 
 
 
