@@ -25,10 +25,3 @@ describe('GET /', function () {
     });
 });
 
-/*
-describe('creating', function(){
-    it('Creating user, expect good fields', function(){
-        var actual = userDB.add_new_user('Andy', 'Boi', 'happy@gspot.com', 'doo', 'doo');
-        assert.equal(actual, 'Your account is created!');
-    });
-});*/
