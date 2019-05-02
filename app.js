@@ -3,7 +3,7 @@
 // initialize firebase
 // const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const serviceAccount = require('../Agile Project/servicekey.json');
+const serviceAccount = require('../Agile-Project/servicekey.json');
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
@@ -20,7 +20,6 @@ firebase.initializeApp(firebaseConfig);
 
 // declaring variable for firestore
 var fbdb = admin.firestore();
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const hbs = require('hbs');
