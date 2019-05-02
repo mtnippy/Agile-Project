@@ -1,37 +1,36 @@
 const fs = require('fs');
 const _ = require('lodash');
-
-const path = './arena.json';
-
-try {
-    if (fs.existsSync(path)){
-        console.log('arena.json is found');
-    } else {
-        throw 'File arena.json is not found, creating new file...'
-    }
-} catch (err) {
-    console.log(err);
-    fs.writeFileSync('arena.json', "{}")
-}
-
-// var readUser = fs.readFileSync('arena.json');
-// var userObject = JSON.parse(readUser);
+const admin = require('firebase-admin');
+var fbdb = admin.firestore();
+const firebase = require('firebase');
 
 var add_info = (name, player_health, player_dps, enemy_health, enemy_dps) => {
-    var player_info = {
-            "player_name": name,
-            "player_health": player_health,
-            "player_dps": player_dps,
-            "enemy_health": enemy_health,
-            "enemy_dps": enemy_dps
-    };
-    var result_battle = JSON.stringify(player_info, undefined, 2);
-    fs.writeFileSync('arena.json', result_battle)
+    fbdb.collection('arena').doc('arena').set({
+        player_name: name,
+        player_health: player_health,
+        player_dps: player_dps,
+        enemy_health: enemy_health,
+        enemy_dps: enemy_dps
+    }) 
 };
 
-var get_info = () => {
-    var get_arena_stats = fs.readFileSync('arena.json');
-    return JSON.parse(get_arena_stats);
+var get_info = async () => {
+    var info = await fbdb.collection('arena').doc('arena').get();
+
+    var name_player = info.data()['player_name'];
+    var health_player = info.data()['player_health'];
+    var dps_player = info.data()['player_dps'];
+    var enemy_health = info.data()['enemy_health'];
+    var enemy_dps = info.data()['enemy_dps'];
+
+    var arena_info = {
+        name: name_player,
+        health: health_player,
+        dps: dps_player,
+        dps_enemy: enemy_dps,
+        health_enemy: enemy_health
+    };
+    return arena_info
 };
 
 module.exports = {
