@@ -4,21 +4,27 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "cheerio": "^1.0.0-rc.3",
+    "expect": "^24.7.1",
+    "exports": "0.0.1",
     "express": "^4.16.4",
-    "firebase": "^5.10.1",
+    "firebase": "^5.11.0",
     "firebase-admin": "^7.3.0",
     "hbs": "^4.0.4",
     "init": "^0.1.2",
     "lodash": "^4.17.11",
-    "mongodb": "^3.2.3"
+    "module": "^1.2.5",
+    "mongodb": "^3.2.3",
+    "supertest": "^4.0.2"
   }
 }

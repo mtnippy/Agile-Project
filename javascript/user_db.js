@@ -1,7 +1,18 @@
+// YOU MUST RUN THIS FIRST: "npm install firebase-admin --save"
+// initialize firebase
+// const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+const path = '../servicekey.json';
 const fs = require('fs');
 const _ = require('lodash');
 
-const path = './user_database.json';
+// declaring variable for firestore
+var fbdb = admin.firestore();
+const firebase = require('firebase');
+
+
+
+console.log(fbdb);
 
 try{
     if (fs.existsSync(path)){
@@ -18,23 +29,15 @@ var readUser = fs.readFileSync("user_database.json");
 var userObject = JSON.parse(readUser);
 
 var add_new_user = (first_name, last_name, email, password, password_repeat) => {
-
-    if (email in userObject) {
-        return 'Email has already been taken.'
-    }
-
     if (password !== password_repeat) {
         return 'Password does not match'
     } else {
-        userObject[email] = {
-            First_Name: first_name,
-            Last_Name: last_name,
-            Email_Address: email,
-            Password: password
-        };
-        var result_user_account = JSON.stringify(userObject, undefined, 2);
-        fs.writeFileSync('user_database.json', result_user_account);
-
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log('error'+ error.message);
+        });
         return 'Your account is created!'
     }
 };
@@ -42,15 +45,24 @@ var add_new_user = (first_name, last_name, email, password, password_repeat) => 
 var login_check = (email, password) => {
     // console.log(typeof userObject.Password);
 
-    if (email in userObject) {
-        if (userObject[`${email}`].Password === password) {
-            return 'Success!'
-        } else {
-            return 'Password incorrect'
-        }
-    } else {
-        return 'Email is not found'
-    }
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .catch(function(error) {
+            // error handling
+            var errorCode = error.code;
+            var errorMessages = error.message;
+            console.log('error' + error.message);
+            return 'Login Failed'
+        })
+
+    // if (email in userObject) {
+    //     if (userObject[`${email}`].Password === password) {
+    //         return 'Success!'
+    //     } else {
+    //         return 'Password incorrect'
+    //     }
+    // } else {
+    //     return 'Email is not found'
+    // }
 };
 
 var email_get = (email) => {

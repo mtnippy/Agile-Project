@@ -2,8 +2,9 @@
 
 // initialize firebase
 // const functions = require('firebase-functions');
+
 const admin = require('firebase-admin');
-const serviceAccount = require('../3rd Agile Project/servicekey.json');
+const serviceAccount = require('../Real_Agile_Project/servicekey.json');
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
@@ -56,6 +57,7 @@ fbdb.collection('characters').get()
         // console.log('Error getting documents', err);
     });
 
+
 // add data to the 'characters' database with randomly generated ID
 /*
 fbdb.collection("characters").add({
@@ -107,14 +109,16 @@ const fs = require('fs');
 
 var authentication = false;
 var user = 'Characters';
-var userid = '';
+
 
 const user_db = require('./javascript/user_db.js');
 const character_db = require('./javascript/character_db.js');
 const fight = require('./javascript/fighting_saves');
 
-var name = user_db.email_get(user);
+var name = '';
+var user_email = '';
 var app = express();
+// var userid = user_db.user_id_get();
 hbs.registerPartials(__dirname + '/views/partials');
 
 app.use(bodyParser.json());
@@ -146,8 +150,7 @@ app.get('/logout', (request, response) => {
     response.redirect('/');
 });
 
-app.get('/index_b', (request, response) => {
-    var name = user_db.email_get(user);
+app.get('/index_b', async (request, response) => {
     response.render('index_b.hbs', {
         title_page: 'Official Front Page',
         header: 'Fight Simulator',
@@ -156,7 +159,7 @@ app.get('/index_b', (request, response) => {
     })
 });
 
-app.post('/user_logging_in', (request, response) => {
+app.post('/user_logging_in', async (request, response) => {
     var email = request.body.email;
     var password = request.body.password;
     var output = user_db.login_check(email, password);
@@ -165,28 +168,10 @@ app.post('/user_logging_in', (request, response) => {
         response.redirect('/')
     } else {
         authentication = true;
-        user = email;
+        var alex = await fbdb.collection('users').doc(email).get();
+        name = await alex.data()['f_name'];
+        user_email = email;
         response.redirect('/index_b');
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                // console.log(user); // It shows the Firebase user
-                // console.log(firebase.auth().user); // It is still undefined
-                // store token in variable
-                user.getIdToken().then(function(idToken) {  // <------ Check this line
-                    console.log(idToken); // It shows the Firebase token now
-                    admin.auth().verifyIdToken(idToken)
-                        .then(function(decodedToken) {
-                            userid = decodedToken.uid;
-                            console.log(userid);
-                        }).catch(function(error) {
-                        // Handle error
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        console.log('error'+ error.message);
-                    });
-                });
-            }
-        });
     }
 });
 
@@ -215,11 +200,12 @@ app.post('/insert', (request, response) => {
     })
 });
 
+// STOP HERE FOR TESTING
+
 app.get('/character', (request, response) => {
     if (authentication === false) {
         response.redirect('/')
     } else {
-        var db = character_db.getDb();
         db.collection('Character').find({email: user}).toArray((err, item) => {
             if (err) {
                 console.log(err)
@@ -321,31 +307,25 @@ app.post('/create_character', (request, response) => {
 });
 
 
-app.get('/account', (request, response) => {
+app.get('/account', async (request, response) => {
     if (authentication === false) {
         response.redirect('/');
     } else {
-        var name = user_db.email_get(user);
-        character_db.getDb().collection('Character').find({email: user}).toArray((err, item) => {
-            if (err) {
-                console.log(err);
-            } else{
-                try {
-                    var win = item[0].win;
-                    var loses = item[0].lose;
-                    var user = item[0].email;
-                    response.render('account.hbs', {
-                        name: name,
-                        win: win,
-                        losses: loses,
-                        email: user,
-                        header: 'Account'
-                    })
-                } catch {
-                    response.redirect("/account_error");
-                }
-            }
-        });
+        var alex = await fbdb.collection('users').doc(user_email).get();
+        try {
+            var win = alex.data()['win'];
+            var loses = alex.data()['loss'];
+            var name = alex.data()['f_name'];
+            response.render('account.hbs', {
+                name: name,
+                win: win,
+                losses: loses,
+                email: user_email,
+                header: 'Account'
+            })
+        } catch {
+            response.redirect("/account_error");
+        }
     }
 });
 
@@ -521,7 +501,9 @@ app.post('/delete', (request, response) => {
     response.redirect("/character")
 });
 
-app.listen(port, () => {
-    console.log(`Server is up on the port ${port}`);
-    character_db.init();
+const server = app.listen(port, () => {
+        console.log(`Server is up on the port ${port}`);
 });
+module.exports = server;
+
+
