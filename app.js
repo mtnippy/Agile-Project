@@ -3,7 +3,9 @@
 // initialize firebase
 // const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const serviceAccount = require('../Real_Agile_Project/servicekey.json');
+
+const serviceAccount = require('../Agile-Project/servicekey.json');
+
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
@@ -19,7 +21,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // declaring variable for firestore
-var fbdb = admin.firestore();
+
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -374,5 +376,4 @@ const server = app.listen(port, () => {
 });
 //Had to export modules out of app.js 
 module.exports = server;
-
 
