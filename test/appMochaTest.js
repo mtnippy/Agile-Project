@@ -7,7 +7,7 @@ const expect = require('chai').expect;
 const app = require('../app.js');
 
 
-
+//Unit test for retrieving front page
 describe('GET /', function () {
     it("should return 'Official Front Page' ", function (done) {
         request(app)
@@ -16,7 +16,7 @@ describe('GET /', function () {
             .expect('Content-Type', "text/html; charset=utf-8")
             .expect(200)
             .end(function(err, res) {
-                // console.log(res.text);
+               // console.log(res.text);
                 var $ = cheerio.load(res.text);
                 var title = $('title').text();
                 assert.equal(title, 'Official Front Page');
