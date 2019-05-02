@@ -36,6 +36,9 @@
                     <input id="password" type="password" placeholder="Enter Password" class="form-control" name="password" required minlength="8">
                     <br>
 
+                    <meter max="4" id="password-strength-meter"></meter>
+                    <p id="password-strength-text"></p>
+
                     <label><b>Repeat Password</b></label>
                     <input id="repeat_password" type="password" placeholder="Repeat Password" class="form-control" name="password_repeat" required>
                     <br>
@@ -50,6 +53,34 @@
     </div>
 
 
+    <script>
+        var strength = {
+            0: "Worst",
+            1: "Bad",
+            2: "Weak",
+            3: "Good",
+            4: "Strong"
+        };
+        var password = document.getElementById('password');
+        var meter = document.getElementById('password-strength-meter');
+        var text = document.getElementById('password-strength-text');
+
+        password.addEventListener('input', function() {
+            var val = password.value;
+            var result = zxcvbn(val);
+
+            // Update the password strength meter
+            meter.value = result.score;
+
+            // Update the text indicator
+            if (val !== "") {
+                text.innerHTML = "Strength: " + strength[result.score];
+            } else {
+                text.innerHTML = "";
+            }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
