@@ -20,7 +20,6 @@ firebase.initializeApp(firebaseConfig);
 
 // declaring variable for firestore
 var fbdb = admin.firestore();
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const hbs = require('hbs');
