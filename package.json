@@ -16,7 +16,6 @@
     "express": "^4.16.4",
     "firebase": "^5.10.1",
     "firebase-admin": "^7.3.0",
-    "firebase-functions": "^2.3.0",
     "hbs": "^4.0.4",
     "init": "^0.1.2",
     "lodash": "^4.17.11",
