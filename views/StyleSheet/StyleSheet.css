@@ -42,9 +42,8 @@ nav {
 
 meter {
     /* Reset the default appearance */
-    -webkit-appearance: none;
+    -webkit-appearance: meter;
     -moz-appearance: none;
-    appearance: none;
 
     margin: 0 auto 1em;
     width: 100%;
