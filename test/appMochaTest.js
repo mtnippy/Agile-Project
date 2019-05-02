@@ -7,7 +7,6 @@ const expect = require('chai').expect;
 const app = require('../app.js');
 
 
-
 //Unit test for retrieving front page
 describe('GET /', function () {
     it("should return 'Official Front Page' ", function (done) {
@@ -25,5 +24,4 @@ describe('GET /', function () {
             })
     });
 });
-
 
