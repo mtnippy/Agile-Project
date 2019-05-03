@@ -3,9 +3,7 @@
 // initialize firebase
 // const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-
-const serviceAccount = require('../Agile-Project/servicekey.json');
-
+const serviceAccount = require('../Real_Agile_Project/servicekey.json');
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
@@ -21,8 +19,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // declaring variable for firestore
-
-
+var fbdb = admin.firestore();
 const express = require('express');
 const bodyParser = require('body-parser');
 const hbs = require('hbs');
@@ -370,10 +367,10 @@ app.post('/delete', (request, response) => {
     response.redirect("/character")
 });
 
-
+//fixed to be utilized for endpoint testing
 const server = app.listen(port, () => {
-        console.log(`Server is up on the port ${port}`);
+    console.log(`Server is up on the port ${port}`);
 });
-//Had to export modules out of app.js 
+
 module.exports = server;
 

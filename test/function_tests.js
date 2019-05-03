@@ -6,16 +6,6 @@ const chai = require('chai');
 chai.use(require('chai-http'));
 const expect = require('chai').expect;
 
-const firebase = require('firebase');
-var firebaseConfig = {
-    apiKey: "AIzaSyCJorziWo3lcBRSxEqaTD-WMFEP-0VxqOY",
-    authDomain: "test-6ec85.firebaseapp.com",
-    databaseURL: "https://test-6ec85.firebaseio.com",
-    projectId: "test-6ec85",
-    storageBucket: "test-6ec85.appspot.com",
-    messagingSenderId: "483947477248"
-};
-firebase.initializeApp(firebaseConfig);
 
 describe('adding', function(){
     // Unit test "it" block for adding info upon character creation
@@ -29,16 +19,16 @@ describe('adding', function(){
 
 
 describe('creating', function(){
-    it('Creating user, expect good fields', function(){
-        var actual = userDB.add_new_user('Andy', 'Boi', 'happy@gspot.com', 'doo', 'doo');
+    it('Creating user, expect good fields',  async () => {
+        var actual = userDB.add_new_user('Andy', 'Boi', 'happy@gspot.com', 'doodoo', 'doodoo');
         assert.equal(actual, 'Your account is created!');
     });
 });
 
 
-describe('creating', function(){
-    it('Creating user, expect good fields', function(){
-        var actual = userDB.email_get('happy@gspot.com');
-        assert.equal(actual, 'Your account is created!');
+describe('getting', function(){
+    it('Should return good e-mail',  async () => {
+        var actual = userDB.check_character_exist('happy@gspot.com');
+        assert.equal(actual, 'undefined');
     });
 });
