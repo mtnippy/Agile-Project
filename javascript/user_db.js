@@ -46,9 +46,21 @@ var login_check = async (email, password) => {
         })    
 };
 
+var logout = async (email, password) => {
+
+    await firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+    }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessages = error.message;
+        console.log('error' + error.message);
+        return 'Logout Failed'
+    });
+};
+
 var check_character_exist = async (email) => {
-    var ref = await fbdb.collection('characters').doc(email).get()
-    ref2 = ref.exists
+    var ref = await fbdb.collection('characters').doc(email).get();
+    ref2 = ref.exists;
     return ref2
 };
 
