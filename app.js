@@ -3,7 +3,7 @@
 // initialize firebase
 // const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const serviceAccount = require('../Agile-Project/servicekey.json');
+const serviceAccount = require('../Agile Project/servicekey.json');
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
@@ -20,6 +20,7 @@ firebase.initializeApp(firebaseConfig);
 
 // declaring variable for firestore
 var fbdb = admin.firestore();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const hbs = require('hbs');
@@ -34,7 +35,6 @@ var user = 'Characters';
 
 
 const user_db = require('./javascript/user_db.js');
-const character_db = require('./javascript/character_db.js');
 const fight = require('./javascript/fighting_saves.js');
 
 var f_name = '';
@@ -84,17 +84,29 @@ app.get('/index_b', async (request, response) => {
 app.post('/user_logging_in', async (request, response) => {
     var email = request.body.email;
     var password = request.body.password;
-    var output = user_db.login_check(email, password);
-
-    if (output === 'Login Failed') {
-        response.redirect('/')
-    } else {
+    var output = '';
+    // var output = await user_db.login_check(email, password);
+    var output = firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(async function () {
         authentication = true;
         var alex = await fbdb.collection('users').doc(email).get();
         f_name = await alex.data()['f_name'];
         user_email = email;
         response.redirect('/index_b');
-    }
+    })
+    .catch(function(error) {
+        var errorCode = error.code;
+        var errorMessages = error.message;
+        if (error.code === 'auth/invalid-email') {
+            response.redirect('/')
+        } else if (error.code === 'auth/user-disabled') {
+            response.redirect('/')
+        } else if (error.code === 'auth/user-not-found') {
+            response.redirect('/')
+        } else (
+            response.redirect('/')
+        )
+    });
 });
 
 app.get('/sign_up', (request, response) => {
@@ -126,8 +138,7 @@ app.get('/character', async (request, response) => {
         response.redirect('/')
     } else {
         var exist = await user_db.check_character_exist(user_email);
-        console.log(exist);
-        if ( exist === true) {
+        if (exist === true) {
             try {
                 var users_character = await fbdb.collection('characters').doc(user_email).get();
                 var character_name = await users_character.data()['character_name'];
@@ -170,7 +181,7 @@ app.get('/character_creation', async (request, response) => {
         response.redirect('/')
     } else {
         var exist = await user_db.check_character_exist(user_email);
-        if ( exist === true) {
+        if (exist === true) {
             output = "You already have a character ready for battle!";
             response.render('character_creation.hbs', {
                 title_page: 'Character Creation',
@@ -196,7 +207,7 @@ app.post('/create_character', async (request, response) => {
         response.redirect('/character_creation')
     } else {
         var healthy = _.random(1, 100);
-        var dps = _.round(healthy/3);
+        var dps = _.round(healthy / 3);
         fbdb.collection('characters').doc(user_email).set({
             character_name: character_name,
             character_health: healthy,
@@ -204,8 +215,8 @@ app.post('/create_character', async (request, response) => {
             win: 0,
             loss: 0
         });
-            response.redirect('/character')
-    }       
+        response.redirect('/character')
+    }
 });
 
 
@@ -236,7 +247,7 @@ app.get('/account_error', (request, response) => {
         response.redirect('/');
     } else {
         var name = user_db.email_get(user);
-        response.render('account_error.hbs',{
+        response.render('account_error.hbs', {
             email: user,
             header: 'Account',
             name: name
@@ -251,32 +262,32 @@ app.get('/fight', async (request, response) => {
         response.redirect('/');
     } else {
         var character_db = await fbdb.collection('characters').doc(user_email).get();
-            try {
-                var name_player = character_db.data()['character_name'];
-                var health_player = character_db.data()['character_health']
-                var dps_player = character_db.data()['character_dps'];
-                var health_enemy = _.random(health_player - 10, _.round(health_player + 5));
-                var dps_enemy = _.random(dps_player - 10, dps_player + 3);
+        try {
+            var name_player = character_db.data()['character_name'];
+            var health_player = character_db.data()['character_health']
+            var dps_player = character_db.data()['character_dps'];
+            var health_enemy = _.random(health_player - 10, _.round(health_player + 5));
+            var dps_enemy = _.random(dps_player - 10, dps_player + 3);
 
-                fight.add_info(name_player, health_player, dps_player, health_enemy, dps_enemy);
+            fight.add_info(name_player, health_player, dps_player, health_enemy, dps_enemy);
 
-                response.render('fighting.hbs', {
-                    title_page: `Let's fight!`,
-                    header: 'Fight Fight Fight!',
-                    username: f_name,
-                    character_name: `${name_player}`,
-                    enemy_name: `The Enemy`,
-                    health_player: `Health: ${health_player}`,
-                    dps_player: `DPS: ${dps_player}`,
-                    health_enemy: `Health: ${health_enemy}`,
-                    dps_enemy: `DPS: ${dps_enemy}`
-                })
-            } catch (e) {
-                response.render('fighting.hbs', {
-                    title_page: 'Error 404',
-                    header: 'Error 404'
-                })
-            }
+            response.render('fighting.hbs', {
+                title_page: `Let's fight!`,
+                header: 'Fight Fight Fight!',
+                username: f_name,
+                character_name: `${name_player}`,
+                enemy_name: `The Enemy`,
+                health_player: `Health: ${health_player}`,
+                dps_player: `DPS: ${dps_player}`,
+                health_enemy: `Health: ${health_enemy}`,
+                dps_enemy: `DPS: ${dps_enemy}`
+            })
+        } catch (e) {
+            response.render('fighting.hbs', {
+                title_page: 'Error 404',
+                header: 'Error 404'
+            })
+        }
     }
 });
 
@@ -341,7 +352,7 @@ app.get('/win_lose_page', (request, response) => {
     if (authentication === false) {
         response.redirect('/');
     } else {
-        response.render('win_lose_page.hbs',{
+        response.render('win_lose_page.hbs', {
         })
     }
 });
@@ -371,4 +382,5 @@ app.listen(port, () => {
     console.log(`Server is up on the port ${port}`);
 });
 
+module.exports = app
 

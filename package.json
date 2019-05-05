@@ -1,11 +1,11 @@
 {
-  "name": "project",
+  "name": "final-project",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "webapp.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "test": "mocha --exit",
+    "start": "webapp.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,12 +13,23 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "cheerio": "^1.0.0-rc.3",
     "express": "^4.16.4",
-    "firebase": "^5.10.1",
+    "express-handlebars": "^3.0.2",
+    "express-session": "^1.15.6",
+    "firebase": "^5.11.1",
     "firebase-admin": "^7.3.0",
+    "fs": "0.0.1-security",
     "hbs": "^4.0.4",
-    "init": "^0.1.2",
-    "lodash": "^4.17.11",
-    "mongodb": "^3.2.3"
+    "messagebird": "^2.4.1",
+    "mochai": "^0.2.5",
+    "mockingbird": "^0.3.0",
+    "mongodb": "^3.2.3",
+    "nock": "^10.0.6",
+    "request": "^2.88.0",
+    "supertest": "^4.0.2",
+    "timeout": "^0.2.1",
+    "wait": "^0.1.0"
   }
 }

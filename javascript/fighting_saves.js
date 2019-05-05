@@ -12,6 +12,7 @@ var add_info = (name, player_health, player_dps, enemy_health, enemy_dps) => {
         enemy_health: enemy_health,
         enemy_dps: enemy_dps
     }) 
+    return 'Info sucessfully added'
 };
 
 var get_info = async () => {
