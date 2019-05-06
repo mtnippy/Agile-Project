@@ -21,10 +21,24 @@ function wait(ms) {
 }
 
 var server = chai.request.agent(app)
-//Testing Code-Save renders
-describe('get /index_b', function () {
+describe('get / after failing to log in', function () {
     this.timeout(22000)
     it("Should return 'Logged in index page' ", function (done) {
+        server
+            .post('/user_logging_in')
+            .type('form')
+            .send({ email: '987@gmail.com', password: '124567890' })
+            .then(function (res) {
+                expect(res).to.have.status(200);
+                done()
+            })
+    });
+});
+
+var server = chai.request.agent(app)
+describe('get /index_b and successful login', function () {
+    this.timeout(22000)
+    it("Should return 'Logged in index_b page' ", function (done) {
         server
             .post('/user_logging_in')
             .type('form')
@@ -62,7 +76,7 @@ describe('GET /', function () {
 var server = chai.request.agent(app)
 //Testing Coding page
 describe('GET /sign_up', function () {
-    it("Should return 'Code Page' ", function (done) {
+    it("Should return 'sign up page' ", function (done) {
         server
             .get('/sign_up')
             .end(function (err, res) {
@@ -77,7 +91,6 @@ var server = chai.request.agent(app)
 describe('GET /12345', function () {
     //timeout line
     this.timeout(10000);
-
     it("Should return '404' ", function (done) {
         //timeout line
         wait(3000)
@@ -89,4 +102,3 @@ describe('GET /12345', function () {
             })
     });
 });
-

@@ -26,24 +26,20 @@
 
                 <div class="container">
                     <div class="row">
+                        <div class="row justify-content-center"></div>
                         <div class="col-md-4 lightbox">
-                            <h1>Fighting Game</h1>
-                            {{>description}}
-                        </div>
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4 lightbox">
-                            <h1>Fighting Game</h1>
+                            <h1>Prepare to fight!</h1>
                             <form method="POST" action="/user_logging_in">
                                 <div class="container">
                                     <label for="uname"><b>Username</b></label>
                                     <input type="text" placeholder="Enter Email" class="form-control" name="email" required>
 
                                     <label for="psw"><b>Password</b></label>
-                                    <input type="password" placeholder="Enter Password" class="form-control" name="password" required>
+                                    <input type="password" placeholder="Enter Password" name="password" required>
                                     <br>
-                                    <input type="submit" value="Login" class="btn btn-dark">
-                                    <br><br>
-                                    <a href="sign_up" class="btn btn-dark   ">Sign Up</a>
+                                    <br>
+                                    <input type="submit" class="btn btn-dark" value="Login">
+                                    <a href="sign_up" class="btn btn-dark" >Sign Up</a>
                                 </div>
                             </form>
                         </div>
