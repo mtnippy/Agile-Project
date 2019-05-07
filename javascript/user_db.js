@@ -9,10 +9,6 @@ var fbdb = admin.firestore();
 var userid = '';
 const firebase = require('firebase');
 
-
-var readUser = fs.readFileSync("user_database.json");
-var userObject = JSON.parse(readUser);
-
 var add_new_user = (first_name, last_name, email, password, password_repeat) => {
     if (password !== password_repeat) {
         return 'Password does not match'
@@ -39,26 +35,37 @@ var add_new_user = (first_name, last_name, email, password, password_repeat) => 
     }
 };
 
-var login_check = (email, password) => {
+var login_check = async (email, password) => {
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .catch(function(error) {
-            var errorCode = error.code;
-            var errorMessages = error.message;
-            console.log('error' + error.message);
-            return 'Login Failed'
-        })
+    await firebase.auth().signInWithEmailAndPassword(email, password)
+    .catch(function(error) {
+        var errorCode = error.code;
+        var errorMessages = error.message;
+        console.log('error' + error.message);
+        return 'Login Failed'
+        })    
+};
+
+var logout = async (email, password) => {
+
+    await firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+    }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessages = error.message;
+        console.log('error' + error.message);
+        return 'Logout Failed'
+    });
 };
 
 var check_character_exist = async (email) => {
-    var ref = await fbdb.collection('characters').doc(email).get()
-    ref2 = ref.exists
+    var ref = await fbdb.collection('characters').doc(email).get();
+    ref2 = ref.exists;
     return ref2
 };
 
 module.exports = {
     add_new_user: add_new_user,
-    login_check: login_check,
     check_character_exist: check_character_exist
 };
 
