@@ -332,6 +332,13 @@ app.get('/battle', async (request, response) => {
             };
             fbdb.collection('users').doc(user_email).update(win);
             var won = 'YOU WIN!';
+            var randomaward = Math.floor((Math.random() * 10) + 1);
+            hbucks = {
+                hbucks: (current.data()['hbucks'] + randomaward)
+            };
+            console.log(hbucks);
+            fbdb.collection('users').doc(user_email).update(win);
+            console.log(randomaward);
             response.render('win_lose_page.hbs', {
                 win_lose: `${won}`
             })
@@ -386,5 +393,5 @@ app.listen(port, () => {
     console.log(`Server is up on the port ${port}`);
 });
 
-module.exports = app
+module.exports = app;
 
