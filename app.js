@@ -32,7 +32,7 @@ const fs = require('fs');
 
 var authentication = false;
 var user = 'Characters';
-
+var hbucks = 0;
 
 const user_db = require('./javascript/user_db.js');
 const fight = require('./javascript/fighting_saves.js');
@@ -73,6 +73,10 @@ app.get('/logout', (request, response) => {
 });
 
 app.get('/index_b', async (request, response) => {
+    var getmoney = await fbdb.collection('users').doc(user_email).get();
+    console.log(hbucks);
+    hbucks = await getmoney.data()['hbucks'];
+    console.log(hbucks);
     response.render('index_b.hbs', {
         title_page: 'Official Front Page',
         header: 'Fight Simulator',
@@ -143,7 +147,7 @@ app.get('/character', async (request, response) => {
                 var users_character = await fbdb.collection('characters').doc(user_email).get();
                 var character_name = await users_character.data()['character_name'];
                 var health = await users_character.data()['character_health'];
-                var dps = await users_character.data()['character_dps']
+                var dps = await users_character.data()['character_dps'];
 
                 response.render('character.hbs', {
                     title_page: 'My Character Page',
@@ -219,7 +223,6 @@ app.post('/create_character', async (request, response) => {
     }
 });
 
-
 app.get('/account', async (request, response) => {
     if (authentication === false) {
         response.redirect('/');
@@ -264,7 +267,7 @@ app.get('/fight', async (request, response) => {
         var character_db = await fbdb.collection('characters').doc(user_email).get();
         try {
             var name_player = character_db.data()['character_name'];
-            var health_player = character_db.data()['character_health']
+            var health_player = character_db.data()['character_health'];
             var dps_player = character_db.data()['character_dps'];
             var health_enemy = _.random(health_player - 10, _.round(health_player + 5));
             var dps_enemy = _.random(dps_player - 10, dps_player + 3);
@@ -328,8 +331,16 @@ app.get('/battle', async (request, response) => {
             };
             fbdb.collection('users').doc(user_email).update(win);
             var won = 'YOU WIN!';
+            var randomaward = Math.floor((Math.random() * 10) + 1);
+            hbucks = {
+                hbucks: (current.data()['hbucks'] + randomaward)
+            };
+            console.log(hbucks);
+            fbdb.collection('users').doc(user_email).update(hbucks);
+            console.log(randomaward);
             response.render('win_lose_page.hbs', {
-                win_lose: `${won}`
+                win_lose: `${won}`,
+                currency_earned: randomaward
             })
         } else {
             response.render('fighting.hbs', {
@@ -382,5 +393,4 @@ app.listen(port, () => {
     console.log(`Server is up on the port ${port}`);
 });
 
-module.exports = app
-
+module.exports = app;
