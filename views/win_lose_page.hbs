@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
 </head>
 <body id="backgroundwinlose">
-    {{nav_bar_char}}
+    {{>nav_bar_home}}
 
     <div class="container">
         <div class="row" id="victorylose">
@@ -22,7 +22,9 @@
                     <a href="/character" class="btn btn-dark">Back to Home</a>
                 </div>
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h1>{{currency_earned}} Happy Buck(s) Earned!</h1>
+            </div>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

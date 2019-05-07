@@ -223,7 +223,6 @@ app.post('/create_character', async (request, response) => {
     }
 });
 
-
 app.get('/account', async (request, response) => {
     if (authentication === false) {
         response.redirect('/');
@@ -337,10 +336,11 @@ app.get('/battle', async (request, response) => {
                 hbucks: (current.data()['hbucks'] + randomaward)
             };
             console.log(hbucks);
-            fbdb.collection('users').doc(user_email).update(win);
+            fbdb.collection('users').doc(user_email).update(hbucks);
             console.log(randomaward);
             response.render('win_lose_page.hbs', {
-                win_lose: `${won}`
+                win_lose: `${won}`,
+                currency_earned: randomaward
             })
         } else {
             response.render('fighting.hbs', {
