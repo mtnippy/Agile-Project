@@ -8,7 +8,7 @@ var Sword = {
 var Spear = {
     'Stick': {atk: 1, cost: 0, hp: 1},
     'Lance': { atk: 4, cost: 50, hp: 2},
-    'Javalin': {atk: 10, cost: 100, hp: 4},
+    'Javelin': {atk: 10, cost: 100, hp: 4},
     'Glaive': {atk: 30, cost: 200, hp: 10}
 };
 
