@@ -1,3 +1,18 @@
+const hasOwnProperty = require('has-own-property-x');
+
+var findWeaponByCategory = function(category, weapon) {
+    if(category.weapon == weapon) {return category;}
+    for (var i in weapon) {
+        if (category.hasOwnProperty(i)) {
+            var foundWeapon = findWeaponByCategory(category[i], weapon);
+            if(foundWeapon) {return foundWeapon; }
+        }
+    }
+    console.log(foundWeapon.atk,foundWeapon.cost, foundWeapon.hp)
+};
+
+
+
 var Sword = {
     'Butter knife': {atk: 1, cost: 0, hp: 1},
     'Long Sword': { atk: 3, cost: 50, hp: 3},
@@ -18,4 +33,6 @@ var Axe = {
     'Battle Axe': {atk: 15, cost: 100, hp: 2},
     'Glaive': {atk: 50, cost: 200, hp: 5}
 };
+
+findWeaponByCategory(Axe['Battle Axe'])
 

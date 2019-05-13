@@ -1,7 +1,7 @@
     
 const assert = require('chai').assert;
 const fightingSaves = require('../javascript/fighting_saves.js');
-const userDB = require('../javascript/user_db.js')
+const userDB = require('../javascript/user_db.js');
 const app = require('../app.js');
 const chai = require('chai');
 chai.use(require('chai-http'));
@@ -23,6 +23,13 @@ describe('creating', function(){
     it('Creating user, returns message saying account has been created',  async () => {
         var actual = userDB.add_new_user('Andy', 'Boi', 'happy@spot.com', 'doodoo', 'doodoo');
         assert.equal(actual, 'Your account is created!');
+    });
+});
+
+describe('getting', function(){
+    it('Should get weapon stats',  async () => {
+        var actual = weapons.weaponGet(Sword['Katana']);
+        assert.equal(actual, 'Weapon stats returned');
     });
 });
 
@@ -64,3 +71,37 @@ describe('add info', function() {
         assert.equal(actual, 'Info sucessfully added')
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var Sword = {
+    'Butter knife': {atk: 1, cost: 0, hp: 1},
+    'Long Sword': { atk: 3, cost: 50, hp: 3},
+    'Great Sword': {atk: 7, cost: 100, hp: 7},
+    'Katana': {atk: 20, cost: 200, hp: 20}
+};
+
+var Spear = {
+    'Stick': {atk: 1, cost: 0, hp: 1},
+    'Lance': { atk: 4, cost: 50, hp: 2},
+    'Javelin': {atk: 10, cost: 100, hp: 4},
+    'Glaive': {atk: 30, cost: 200, hp: 10}
+};
+
+var Axe = {
+    'Shovel': {atk: 2, cost: 0, hp: 0},
+    'Tomahawk': { atk: 6, cost: 50, hp: 1},
+    'Battle Axe': {atk: 15, cost: 100, hp: 2},
+    'Great Hammer': {atk: 50, cost: 200, hp: 5}
+};
