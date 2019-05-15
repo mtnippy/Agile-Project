@@ -3,7 +3,7 @@
 // initialize firebase
 // const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const serviceAccount = require('../Real_Agile_Project/servicekey.json');
+const serviceAccount = require('../Agile_Project/servicekey.json');
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
@@ -35,6 +35,8 @@ var user = 'Characters';
 var hbucks = 0;
 
 const user_db = require('./javascript/user_db.js');
+const character_db = require('./javascript/character_db.js');
+
 const fight = require('./javascript/fighting_saves.js');
 
 var f_name = '';
@@ -120,6 +122,142 @@ app.get('/sign_up', (request, response) => {
         username: user
     })
 });
+
+app.get('/store_sword', async (request, response) => {
+    if (authentication === false) {
+        response.redirect('/')
+    } else {
+        var exist = await user_db.check_character_exist(user_email);
+        if (exist === true) {
+            try {
+                var users_character = await fbdb.collection('characters').doc(user_email).get();
+                var character_name = await users_character.data()['character_name'];
+                var health = await users_character.data()['character_health'];
+                var dps = await users_character.data()['character_dps']
+
+                response.render('store_sword.hbs', {
+                    title_page: 'Sword',
+                    header: 'Sword',
+                    username: f_name,
+                    character_name: `${character_name}`,
+                    character_health: `${health}`,
+                    character_dps: `${dps}`
+                })
+            } catch (e) {
+                response.render('character.hbs', {
+                    title_page: 'My Character Page',
+                    header: 'Character Stats',
+                    username: f_name,
+                    character_name: 'CREATE CHARACTER NOW',
+                    character_health: 'CREATE CHARACTER NOW',
+                    character_dps: 'CREATE CHARACTER NOW'
+                })
+            }
+        } else {
+            response.render('character.hbs', {
+                title_page: 'My Character Page',
+                header: 'Character Stats',
+                username: f_name,
+                character_name: 'CREATE CHARACTER NOW',
+                character_health: 'CREATE CHARACTER NOW',
+                character_dps: 'CREATE CHARACTER NOW'
+            })
+        }
+    }
+
+
+});
+
+app.get('/store_spear', async (request, response) => {
+    if (authentication === false) {
+        response.redirect('/')
+    } else {
+        var exist = await user_db.check_character_exist(user_email);
+        if (exist === true) {
+            try {
+                var users_character = await fbdb.collection('characters').doc(user_email).get();
+                var character_name = await users_character.data()['character_name'];
+                var health = await users_character.data()['character_health'];
+                var dps = await users_character.data()['character_dps']
+
+                response.render('store_spear.hbs', {
+                    title_page: 'Spear',
+                    header: 'Spear',
+                    username: f_name,
+                    character_name: `${character_name}`,
+                    character_health: `${health}`,
+                    character_dps: `${dps}`
+                })
+            } catch (e) {
+                response.render('character.hbs', {
+                    title_page: 'My Character Page',
+                    header: 'Character Stats',
+                    username: f_name,
+                    character_name: 'CREATE CHARACTER NOW',
+                    character_health: 'CREATE CHARACTER NOW',
+                    character_dps: 'CREATE CHARACTER NOW'
+                })
+            }
+        } else {
+            response.render('character.hbs', {
+                title_page: 'My Character Page',
+                header: 'Character Stats',
+                username: f_name,
+                character_name: 'CREATE CHARACTER NOW',
+                character_health: 'CREATE CHARACTER NOW',
+                character_dps: 'CREATE CHARACTER NOW'
+            })
+        }
+    }
+
+
+});
+
+app.get('/store_blunt', async (request, response) => {
+    if (authentication === false) {
+        response.redirect('/')
+    } else {
+        var exist = await user_db.check_character_exist(user_email);
+        if (exist === true) {
+            try {
+                var users_character = await fbdb.collection('characters').doc(user_email).get();
+                var character_name = await users_character.data()['character_name'];
+                var health = await users_character.data()['character_health'];
+                var dps = await users_character.data()['character_dps']
+
+                response.render('store_blunt.hbs', {
+                    title_page: 'Blunt',
+                    header: 'Blunt',
+                    username: f_name,
+                    character_name: `${character_name}`,
+                    character_health: `${health}`,
+                    character_dps: `${dps}`
+                })
+            } catch (e) {
+                response.render('character.hbs', {
+                    title_page: 'My Character Page',
+                    header: 'Character Stats',
+                    username: f_name,
+                    character_name: 'CREATE CHARACTER NOW',
+                    character_health: 'CREATE CHARACTER NOW',
+                    character_dps: 'CREATE CHARACTER NOW'
+                })
+            }
+        } else {
+            response.render('character.hbs', {
+                title_page: 'My Character Page',
+                header: 'Character Stats',
+                username: f_name,
+                character_name: 'CREATE CHARACTER NOW',
+                character_health: 'CREATE CHARACTER NOW',
+                character_dps: 'CREATE CHARACTER NOW'
+            })
+        }
+    }
+
+
+});
+
 
 app.post('/insert', (request, response) => {
     var first_name = request.body.first_name;
@@ -393,4 +531,7 @@ app.listen(port, () => {
     console.log(`Server is up on the port ${port}`);
 });
 
+
+
 module.exports = app;
+

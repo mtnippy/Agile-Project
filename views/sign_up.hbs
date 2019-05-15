@@ -52,6 +52,7 @@
             </div>
         </div>
 
+
     <script>
         var strength = {
             0: "Worst",
@@ -63,11 +64,13 @@
         var password = document.getElementById('password');
         var meter = document.getElementById('password-strength-meter');
         var text = document.getElementById('password-strength-text');
+
         password.addEventListener('input', function() {
             var val = password.value;
             var result = zxcvbn(val);
             // Update the password strength meter
             meter.value = result.score;
+
             // Update the text indicator
             if (val !== "") {
                 text.innerHTML = "Strength: " + strength[result.score];
@@ -76,6 +79,7 @@
             }
         });
     </script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -84,3 +88,4 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     </body>
 </html>
+

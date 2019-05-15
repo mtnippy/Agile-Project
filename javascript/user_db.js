@@ -65,6 +65,7 @@ var check_character_exist = async (email) => {
 
 module.exports = {
     add_new_user: add_new_user,
+    login_check: login_check,
     check_character_exist: check_character_exist
 };
 

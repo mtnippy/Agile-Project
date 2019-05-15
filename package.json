@@ -2,38 +2,40 @@
   "name": "final-project",
   "version": "1.0.0",
   "description": "",
-  "main": "webapp.js",
+  "main": "app.js",
   "scripts": {
-    "test": "mocha --exit",
-    "start": "webapp.js"
+    "test": "mocha || true",
+    "start": "app.js",
+    "package": "rm -rf node_modules && docker run -v $PWD:/var/task -w /var/task lambci/lambda:build-nodejs6.10 npm install"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "cheerio": "^1.0.0-rc.3",
-    "error": "^7.0.2",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.2",
     "express-session": "^1.15.6",
     "firebase": "^5.11.1",
     "firebase-admin": "^7.3.0",
     "fs": "0.0.1-security",
-    "has-own-property-x": "^3.2.0",
     "hbs": "^4.0.4",
     "messagebird": "^2.4.1",
-    "mochai": "^0.2.5",
+    "mocha": "^6.1.4",
     "mockingbird": "^0.3.0",
     "mongodb": "^3.2.3",
     "nock": "^10.0.6",
-    "prototype": "0.0.5",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "cheerio": "^1.0.0-rc.3",
+    "grpc": "^1.20.3",
+    "mochai": "^0.2.5",
     "request": "^2.88.0",
     "supertest": "^4.0.2",
     "timeout": "^0.2.1",
-    "util": "^0.12.0",
     "wait": "^0.1.0"
   }
 }

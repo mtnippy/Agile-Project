@@ -1,3 +1,9 @@
 language: node_js
 node_js:
-- "stable"
+  - "node"
+script:
+  -
+deploy:
+  provider: firebase
+  token:
+    secure: "encrypted_firebase_CI_token"

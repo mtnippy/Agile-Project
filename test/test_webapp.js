@@ -99,33 +99,3 @@ describe('GET /sign_up', function () {
 
 
 
-var server = chai.request.agent('http://localhost:8080')
-//Testing Coding page
-describe('GET /update_name', function () {
-    it("Should return page for 'Update Name'", function (done) {
-        server
-            .get('/update_name')
-            .end(function(err, res) {
-                expect(res).to.have.status(200);
-                done()
-            })
-    });
-});
-
-
-var server = chai.request.agent('http://localhost:8080')
-//Testing Coding page
-describe('POST /delete', function () {
-    it("Should Delete Character", function (done) {
-        server
-            .get('/delete')
-            .end(function(err, res) {
-                expect(res).to.have.status(200);
-                done()
-            })
-    });
-});
-
-
-
-
