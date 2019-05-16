@@ -11,16 +11,16 @@
     <!-- END -->
  
     <!-- runs npm install -->
-    <target name="npm" failonerror="true">
+    <target name="npm">
         <echo message="Running npm ..."/>
-        <exec executable="npm.cmd">
+        <exec executable="npm.cmd" failonerror="true">
         <arg value = "install"/>
         </exec>
     </target>
 
     <target name = "test" failonerror="true">
         <echo message ="Running tests ..."/>
-        <exec executable = "npm.cmd">
+        <exec executable = "npm.cmd" failonerror="true">
         <arg value = "test"/>
         </exec>
     </target>
