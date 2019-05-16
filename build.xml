@@ -18,7 +18,7 @@
         </exec>
     </target>
 
-    <target name = "test" failonerror="true">
+    <target name = "test">
         <echo message ="Running tests ..."/>
         <exec executable = "npm.cmd" failonerror="true">
         <arg value = "test"/>
