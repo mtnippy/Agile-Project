@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
  
-<project name="nation" default="full-suite" basedir=".">
+<project name="nation" default="Fighting_Suite" basedir=".">
  
     
     <property name="source" value="app" />
     
  
     <!-- commands -->
-    <target name="full-suite" depends="npm , test" />
+    <target name="Fighting_Suite" depends="npm , test" />
     
  
     <!-- runs npm arg value install -->
