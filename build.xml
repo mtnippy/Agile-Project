@@ -13,7 +13,7 @@
     <!-- runs npm arg value install -->
     <target name="npm">
         <echo message="Running npm ..."/>
-        <exec executable="npm.cmd" failonerror="true">
+        <exec executable="npm.cmd">
         <arg value = "install"/>
         </exec>
     </target>
@@ -21,7 +21,7 @@
     <!-- Executes test with npm arg value test -->
     <target name = "test">
         <echo message ="Running tests ..."/>
-        <exec executable = "npm.cmd" failonerror="true">
+        <exec executable = "npm.cmd">
         <arg value = "test"/>
         </exec>
     </target>
