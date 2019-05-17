@@ -46,10 +46,11 @@
             <div>
                 <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">50</span>
             </div>
-
-            <div>
-                <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
-            </div>
+            <form method="GET" action='/spear_bought1'>
+                <div>
+                    <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
+                </div>
+            </form>
         </div>
         <div class="minibox">
             <img src="Images/javelin.png" alt="" width="100" height="100"  class="zoom" onmouseover="PlaySound('mySound')"
@@ -66,9 +67,11 @@
             <div>
                 <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">100</span>
             </div>
-            <div>
-                <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
-            </div>
+            <form method='GET' action='/spear_bought2'>
+                <div>
+                    <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
+                </div>
+            </form>
         </div>
         <div class="minibox">
             <img src="Images/glaive.png" alt="" width="100" height="100"  class="zoom" onmouseover="PlaySound('mySound')"
@@ -85,14 +88,17 @@
             <div>
                 <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">200</span>
             </div>
-            <div>
-                <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
-            </div>
+            <form method='GET' action='/spear_bought3'>
+                <div>
+                    <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
+                </div>
+            </form>    
         </div>
         <div class="minibox">
             {{> character_stats}}
             <div>
                 <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">CURRENT HBucks</span>
+                <h4>{{currency}}</h4>
             </div>
         </div>
     </div>

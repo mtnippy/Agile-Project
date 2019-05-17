@@ -23,7 +23,10 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 lightbox">
+                <p>{{advantage_msg}}</p>
                 <b>{{character_name}}</b>
+                <p>{{player_class}}</p>
+                <p>{{player_item}}</p>
                 <p id="jimmy">{{health_player}}</p>
                 <p id="dps_player">{{dps_player}}</p>
                 <p id="new_health_player"></p>
@@ -31,6 +34,7 @@
                 <br><br>
 
                 <b>{{enemy_name}}</b>
+                <p>{{enemy_class}}</p>
                 <p id="health_enemy">{{health_enemy}}</p>
                 <p id="dps_enemy">{{dps_enemy}}</p>
 
@@ -39,7 +43,6 @@
                     <button type="submit" class="btn btn-dark">Fight!</button>
                 </form>
                 {{reply}}
-                <a href="/character" class="btn btn-dark">Back to Characters</a>
                 <h1>{{win_lose}}</h1>
                 <br>
                 <b>{{outcome}}</b>

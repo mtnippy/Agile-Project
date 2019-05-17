@@ -4,13 +4,16 @@ const admin = require('firebase-admin');
 var fbdb = admin.firestore();
 const firebase = require('firebase');
 
-var add_info = (name, player_health, player_dps, enemy_health, enemy_dps) => {
+var add_info = (name, player_health, player_dps, enemy_health, enemy_dps, player_class, enemy_class, advantage, advantage_msg) => {
     fbdb.collection('arena').doc('arena').set({
         player_name: name,
         player_health: player_health,
         player_dps: player_dps,
         enemy_health: enemy_health,
-        enemy_dps: enemy_dps
+        enemy_dps: enemy_dps,
+        player_class: player_class,
+        enemy_class: enemy_class,
+        advantage_msg: advantage_msg
     }) 
     return 'Info sucessfully added'
 };

@@ -29,9 +29,10 @@
 
 <div class="container-fluid">
     <div>
-        <div class="minibox">
-            <img src="" alt="" width="50" height="50" ><span id="weapon">SPOT FOR AVATAR</span>
-        </div>
+        {{!-- <div class="minibox"> --}}
+            <h4 style= 'color: red'>{{output}}</h4>
+            {{!-- <img src="" alt="" width="50" height="50" ><span id="weapon">SPOT FOR AVATAR</span> --}}
+        {{!-- </div> --}}
         <div class="minibox">
             <img src="Images/long_sword.png" alt="" width="100" height="100" class="zoom">
             <div>
@@ -46,10 +47,11 @@
             <div>
                 <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">50</span>
             </div>
-
-            <div>
-                <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
-            </div>
+            <form method="GET" action="/sword_bought1">
+                <div>
+                    <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
+                </div>
+            </form>    
         </div>
         <div class="minibox">
             <img src="Images/great_sword.png" alt="" width="100" height="100"  class="zoom" onmouseover="PlaySound('mySound')"
@@ -66,9 +68,11 @@
             <div>
                 <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">100</span>
             </div>
-            <div>
-                <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
-            </div>
+            <form method="GET" action="/sword_bought2">
+                <div>
+                    <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
+                </div>
+            </form>    
         </div>
         <div class="minibox">
             <img src="Images/katana.png" alt="" width="100" height="100"  class="zoom" onmouseover="PlaySound('mySound')"
@@ -85,14 +89,18 @@
             <div>
                 <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">200</span>
             </div>
-            <div>
-                <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
-            </div>
+            <form method="GET" action="/sword_bought3">   
+                <div>
+                    <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
+                </div>
+            </form>    
         </div>
         <div class="minibox">
             {{> character_stats}}
             <div>
                 <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">CURRENT HBucks</span>
+                <h4>{{currency}}</h4>
+                
             </div>
         </div>
     </div>

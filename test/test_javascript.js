@@ -8,17 +8,6 @@ chai.use(require('chai-http'));
 const expect = require('chai').expect;
 
 
-describe('adding', function(){
-    // Unit test "it" block for adding info upon character creation
-    // Note: you have to change the "test" var from "echo/.... to "mocha"
-    // When Unit testing a method, maker sure that method RETURNS SOMETHING!!!
-    it('When Adding info, return info message saying info was added', function(){
-        var actual = fightingSaves.add_info('Andy', '1', '2', '23', '40');
-        assert.equal(actual, 'Info sucessfully added');
-    });
-});
-
-
 describe('creating', function(){
     it('Creating user, returns message saying account has been created',  async () => {
         var actual = userDB.add_new_user('Andy', 'Boi', 'happy@spot.com', 'doodoo', 'doodoo');
@@ -60,7 +49,28 @@ describe('get info', function(){
 
 describe('add info', function() {
     it('Should return message Info sucessfuly added', async () => {
-        var actual = await fightingSaves.add_info('Bob', 100, 30, 100 ,30);
+        var actual = await fightingSaves.add_info('Bob', 100, 30, 100 ,30, 0,"sword",'sword', 0, 'Yes');
         assert.equal(actual, 'Info sucessfully added')
+    });
+});
+
+describe('checks for user advantage', function() {
+    it('Should return Player advantage', async () => {
+        var actual = fightingSaves.check_advantage(1);
+        assert.equal(actual, 'Player has advantage')
+    });
+});
+
+describe('checks for enemy advantage', function() {
+    it('Should return enemy advantage', async () => {
+        var actual = fightingSaves.check_advantage(2);
+        assert.equal(actual, 'Enemy has advantage')
+    });
+});
+
+describe('checks for advantage', function() {
+    it('Should return no advantage', async () => {
+        var actual = fightingSaves.check_advantage(0);
+        assert.equal(actual, 'No one has advantage')
     });
 });

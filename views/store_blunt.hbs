@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="StyleSheet/StyleSheet.css">
-    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
     <script>
         function PlaySound(soundobj) {
             var thissound=document.getElementById(soundobj);
@@ -22,78 +21,98 @@
         }
     </script>
 </head>
-<body class="store">
+<body class="bodyhome">
 
-{{> header}}
-{{> nav_bar_store}}
+<div class="video-header wrap">
+    <div class="fullscreen-video-wrap">
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="Images/Fire.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="header-overlay">
+        <div class="header-content">
 
-<div class="container-fluid">
-    <div>
-        <div class="minibox">
-            <img src="" alt="" width="50" height="50" ><span id="weapon">SPOT FOR AVATAR</span>
-        </div>
-        <div class="minibox">
-            <img src="Images/tomahawk.png" alt="" width="100" height="100" class="zoom"><span id="weapon">Tomahawk</span>
-            <div>
-                <img src="https://image.flaticon.com/icons/svg/1477/1477228.svg"  alt="" width="25" height="25"><span id="weapon">6</span>
-            </div>
-            <div>
-                <img src="https://image.flaticon.com/icons/png/128/148/148838.png"  alt="" width="25" height="25"><span id="weapon">1</span>
-            </div>
-            <div>
-                <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">50</span>
-            </div>
+            {{> header}}
+            {{> nav_bar_store}}
+            <br>
+            <div class="container-fluid">
+                <div>
+                    <div class="minibox">
+                        <img src="" alt="" width="50" height="50" ><span id="weapon">SPOT FOR AVATAR</span>
+                    </div>
+                    <div class="minibox">
+                        <img src="Images/tomahawk.png" alt="" width="100" height="100" class="zoom"><span id="weapon">Tomahawk</span>
+                        <div>
+                            <img src="https://image.flaticon.com/icons/svg/1477/1477228.svg"  alt="" width="25" height="25"><span id="weapon">6</span>
+                        </div>
+                        <div>
+                            <img src="https://image.flaticon.com/icons/png/128/148/148838.png"  alt="" width="25" height="25"><span id="weapon">1</span>
+                        </div>
+                        <div>
+                            <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">50</span>
+                        </div>
+                        <form method='GET' action='/blunt_bought1'>
+                            <div>
+                                <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
+                            </div>
+                        </form>    
+                    </div>
+                    <div class="minibox">
+                        <img src="images/battle_axe.png" alt="" width="100" height="100"  class="zoom" onmouseover="PlaySound('mySound')"
+                            onmouseout="StopSound('mySound')">
+                            <div>
+                                <span id="weapon">Battle Axe</span>
+                            </div>
+                        <div>
+                            <img src="https://image.flaticon.com/icons/svg/1477/1477228.svg" alt="" width="25" height="25"><span id="weapon">15</span>
+                        </div>
+                        <div>
+                            <img src="https://image.flaticon.com/icons/png/128/148/148838.png"  alt="" width="25" height="25"><span id="weapon">2</span>
+                        </div>
+                        <div>
+                            <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">100</span>
+                        </div>
 
-            <div>
-                <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
+                        <form method='GET' action='/blunt_bought2'>
+                            <div>
+                                <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="minibox">
+                        <img src="Images/glaive.png" alt="" width="100" height="100"  class="zoom" onmouseover="PlaySound('mySound')"
+                            onmouseout="StopSound('mySound')">
+                            <div>
+                                <span id="weapon">Glaive</span>
+                            </div>
+                        <div>
+                            <img src="https://image.flaticon.com/icons/svg/1477/1477228.svg" alt="" width="25" height="25"><span id="weapon">50</span>
+                        </div>
+                        <div>
+                            <img src="https://image.flaticon.com/icons/png/128/148/148838.png"  alt="" width="25" height="25"><span id="weapon">5</span>
+                        </div>
+                        <div>
+                            <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">200</span>
+                        </div>
+                        <form method='GET' action='/blunt_bought3'>
+                            <div>
+                                <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
+                            </div>
+                        </form>    
+                    </div>
+                    <div class="minibox">
+                        {{> character_stats}}
+                        <div>
+                            <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">CURRENT HBucks</span>
+                            <h4>{{currency}}</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="minibox">
-            <img src="images/battle_axe.png" alt="" width="100" height="100"  class="zoom" onmouseover="PlaySound('mySound')"
-                 onmouseout="StopSound('mySound')">
-                 <div>
-                    <span id="weapon">Battle Axe</span>
-                 </div>
-            <div>
-                <img src="https://image.flaticon.com/icons/svg/1477/1477228.svg" alt="" width="25" height="25"><span id="weapon">15</span>
-            </div>
-            <div>
-                <img src="https://image.flaticon.com/icons/png/128/148/148838.png"  alt="" width="25" height="25"><span id="weapon">2</span>
-            </div>
-            <div>
-                <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">100</span>
-            </div>
-            <div>
-                <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
-            </div>
-        </div>
-        <div class="minibox">
-            <img src="Images/glaive.png" alt="" width="100" height="100"  class="zoom" onmouseover="PlaySound('mySound')"
-                 onmouseout="StopSound('mySound')">
-                 <div>
-                    <span id="weapon">Glaive</span>
-                 </div>
-            <div>
-                <img src="https://image.flaticon.com/icons/svg/1477/1477228.svg" alt="" width="25" height="25"><span id="weapon">50</span>
-            </div>
-            <div>
-                <img src="https://image.flaticon.com/icons/png/128/148/148838.png"  alt="" width="25" height="25"><span id="weapon">5</span>
-            </div>
-            <div>
-                <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">200</span>
-            </div>
-            <div>
-                <button class="btn btn-dark" data-toggle="modal" data-target="#myModal">Buy</button>
-            </div>
-        </div>
-        <div class="minibox">
-            {{> character_stats}}
-            <div>
-                <img src="Images/coin.png" alt="" width="25" height="25"><span id="weapon">CURRENT HBucks</span>
-            </div>
-        </div>
+       </div>
     </div>
 </div>
+
 
 
 

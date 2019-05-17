@@ -22,7 +22,7 @@ var add_new_user = (first_name, last_name, email, password, password_repeat) => 
         fbdb.collection("users").doc(email).set({
             f_name: first_name,
             l_name: last_name,
-            hbucks: 0
+            hbucks: 0,
         })
             .then(function() {
                 console.log("Document written with ID: ", userid);
