@@ -18,7 +18,7 @@ describe('creating', function(){
 describe('getting', function(){
     it('Should return true if the character exists',  async () => {
         var actual = await userDB.check_character_exist('987@gmail.com');
-        assert.equal(actual, true);
+        assert.equal(actual, false);
     });
 });
 

@@ -10,7 +10,7 @@
     <target name="Fighting_Suite" depends="npm , test" />
     
  
-    <!-- runs npm arg value install -->
+    <!-- runs npm arg value install woohoo -->
     <target name="npm">
         <echo message="Running npm ..."/>
         <exec executable="npm.cmd">
