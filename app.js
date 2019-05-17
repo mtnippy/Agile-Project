@@ -3,7 +3,7 @@
 // initialize firebase
 // const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const serviceAccount = require('../Real_Agile_Project/servicekey.json');
+const serviceAccount = require('../Agile_Project/servicekey.json');
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
