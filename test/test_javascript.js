@@ -57,63 +57,63 @@ describe('advantage test', function() {
     });
 });
 
-describe('Weapon Triangle Test', function() {
+describe('Weapon Triangle Test Sword--Axe', function() {
     it('Should return with weapon advantage', async() => {
         var actual = await fightingSaves.check_weapon_advantage('Sword', 'Axe');
         assert.equal(actual, 'You have the weapon advantage!')
     });
 });
 
-describe('Weapon Triangle Test', function() {
+describe('Weapon Triangle Test Spear--Sword', function() {
     it('Should return with weapon advantage', async() => {
         var actual = await fightingSaves.check_weapon_advantage('Spear', 'Sword');
         assert.equal(actual, 'You have the weapon advantage!')
     });
 });
 
-describe('Weapon Triangle Test', function() {
+describe('Weapon Triangle Test Axe--Spear', function() {
     it('Should return with weapon advantage', async() => {
         var actual = await fightingSaves.check_weapon_advantage('Axe', 'Spear');
         assert.equal(actual, 'You have the weapon advantage!')
     });
 });
 
-describe('Weapon Triangle Test', function() {
+describe('Weapon Triangle Test Axe--Sword', function() {
     it('Should return with enemy weapon advantage', async() => {
         var actual = await fightingSaves.check_weapon_advantage('Axe', 'Sword');
         assert.equal(actual, 'Enemy has the weapon advantage!')
     });
 });
 
-describe('Weapon Triangle Test', function() {
+describe('Weapon Triangle Test Sword--Spear', function() {
     it('Should return with enemy weapon advantage', async() => {
         var actual = await fightingSaves.check_weapon_advantage('Sword', 'Spear');
         assert.equal(actual, 'Enemy has the weapon advantage!')
     });
 });
 
-describe('Weapon Triangle Test', function() {
+describe('Weapon Triangle Test Spear--Axe', function() {
     it('Should return with enemy weapon advantage', async() => {
         var actual = await fightingSaves.check_weapon_advantage('Spear', 'Axe');
         assert.equal(actual, 'Enemy has the weapon advantage!')
     });
 });
 
-describe('Weapon Triangle Test', function() {
+describe('Weapon Triangle Test Axe--Axe', function() {
     it('Should return with no weapon advantage', async() => {
         var actual = await fightingSaves.check_weapon_advantage('Axe', 'Axe');
         assert.equal(actual, 'No weapon advantage given!')
     });
 });
 
-describe('Weapon Triangle Test', function() {
+describe('Weapon Triangle Test Sword--Sword', function() {
     it('Should return with no weapon advantage', async() => {
         var actual = await fightingSaves.check_weapon_advantage('Sword', 'Sword');
         assert.equal(actual, 'No weapon advantage given!')
     });
 });
 
-describe('Weapon Triangle Test', function() {
+describe('Weapon Triangle Test Spear--Spear', function() {
     it('Should return with no weapon advantage', async() => {
         var actual = await fightingSaves.check_weapon_advantage('Spear', 'Spear');
         assert.equal(actual, 'No weapon advantage given!')
