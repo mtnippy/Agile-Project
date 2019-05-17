@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "start": "app.js",
     "package": "rm -rf node_modules && docker run -v $PWD:/var/task -w /var/task lambci/lambda:build-nodejs6.10 npm install"
   },
