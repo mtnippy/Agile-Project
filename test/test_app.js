@@ -2,7 +2,6 @@ const request = require('supertest');
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 var cheerio = require('cheerio');
-var describe = require('describe');
 
 
 
@@ -10,10 +9,10 @@ var chai = require('chai'), chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 const app = require('../app');
-var server = chai.request.agent(app);
+var server = chai.request.agent(app)
 
 function wait(ms) {
-    console.log('Database Loading');
+    console.log('Database Loading')
     var start = new Date().getTime();
     var end = start;
     while (end < start + ms) {
@@ -54,7 +53,7 @@ describe('get /index_b and successful login', function () {
 var server = chai.request.agent(app)
 //Testing Home Page
 describe('GET /', function () {
-    this.timeout(20000);
+    this.timeout(5000);
     it("should return as 'Official Front Page' ", function (done) {
         wait(4000);
         request(app)

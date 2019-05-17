@@ -37,7 +37,29 @@ var get_info = async () => {
     return arena_info
 };
 
+var check_advantage  = async (advantage) => {
+    if (advantage === 1) {
+        return 'Player has advantage';
+    } else if (advantage === 2) {
+        return 'Enemy has advantage';
+    } else {
+        return 'No one has advantage';
+    }
+};
+
+var check_weapon_advantage = async(player, enemy) => {
+    if (player == 'Sword' && enemy == 'Axe' || player == 'Spear' && enemy == 'Sword' || player == 'Axe' && enemy== 'Spear') {
+        return  `You have the weapon advantage!`;
+    } else if (player == 'Axe' && enemy == 'Sword' || player == 'Sword' && enemy == 'Spear' || player == 'Spear' && enemy == 'Axe') {
+        return 'Enemy has the weapon advantage!'
+    } else {
+        return `No weapon advantage given!`
+    }
+};
+
 module.exports = {
     add_info: add_info,
-    get_info: get_info
+    get_info: get_info,
+    check_advantage: check_advantage,
+    check_weapon_advantage: check_weapon_advantage
 };

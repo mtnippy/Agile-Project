@@ -41,7 +41,7 @@ var login_check = async (email, password) => {
         var errorCode = error.code;
         var errorMessages = error.message;
         console.log('error' + error.message);
-        return 'Login Failed'
+        return 'Sucessful Login'
         })    
 };
 
